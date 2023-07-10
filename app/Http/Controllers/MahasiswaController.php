@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
-    //
+     /**
+     * index
+     *
+     * @return View
+     */
     public function index(): View
     {
         //get mahasiswa
@@ -32,24 +36,29 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswas.create');
     }
-
+     /**
+     * store
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function store(Request $request)
     {
         //validate form
         $this->validate($request, [
-            'nama'          => 'required',
-            'nim'           => 'required|min:9',
-            'no_telp'       => 'required|min:12',
-            'umur'          => 'required',
+            'nama'          => 'required|min:5',
+            'nim'           => 'required|unique:mahasiswas',
+            'no_telp'       => 'required',
+            'umur'          => 'required|numeric',
             'alamat'        => 'required',
-            'tanggal_lahir' => 'required',
+            'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'image'         => 'required',
         ]);
         
         //upload image
         $image = $request->file('image');
-        $image->storeAs( 'public/mahasiswas', $image->hashName());
+        $image->storeAs( 'public/posts', $image->hashName());
         
         //create mahasiswa
         Mahasiswa::create([
@@ -79,24 +88,24 @@ class MahasiswaController extends Controller
     public function edit(string $id): View
     {
         //get mahasiswa by ID
-        $mahasiswa = Mahasiswa::findOfFail($id);
+        $mahasiswa = Mahasiswa::findOrFail($id);
         
         //render view with post
         return view('mahasiswas.edit', compact('mahasiswa'));
     }
     
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         //validate form
         $this->validate($request, [
-            'nama'          => 'required',
-            'nim'           => 'required|min:9',
-            'no_telp'       => 'required|min:12',
-            'umur'          => 'required',
-            'alamat'        => 'required',
-            'tanggal_lahir' => 'required',
+            'nama' => 'required|min:5',
+            'nim' => 'required',
+            'no_telp' => 'required',
+            'umur' => 'required|numeric',
+            'alamat' => 'required',
+            'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         //get mahasiswa by ID
@@ -107,10 +116,10 @@ class MahasiswaController extends Controller
 
             //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/mahasiswas', $image->hashName());
+            $image->storeAs('public/posts', $image->hashName());
             
             //delete old image
-            Storage::delete('public/mahasiswas/'.$mahasiswa->image);
+            Storage::delete('public/posts/'.$mahasiswa->image);
             
             //update mahasiswa with new image
             $mahasiswa->update([
@@ -147,7 +156,7 @@ class MahasiswaController extends Controller
             $mahasiswa = Mahasiswa::findOrFail($id);
 
             //delete image
-            Storage::delete('public/mahasiswas/'. $mahasiswa->image);
+            Storage::delete('public/posts/'. $mahasiswa->image);
 
             //delete mahasiswa
             $mahasiswa->delete();

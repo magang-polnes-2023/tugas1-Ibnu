@@ -17,5 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/mahasiswas', \App\Http\Controllers\MahasiswaController::class);
-Route::resource('/universitass', \App\Http\Controllers\UniversitasController::class);
+Route::resource('/mahasiswa', \App\Http\Controllers\MahasiswaController::class);
+Route::resource('/universitas', \App\Http\Controllers\UniversitasController::class);

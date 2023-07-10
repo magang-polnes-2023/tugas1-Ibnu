@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Data Mahasiswa</title>
+    <title>Edit Data Universitas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body style="background: lightgray">
@@ -14,35 +14,40 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('mahasiswas.update', $mahasiswa->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('universitas.update', $universitas->nama) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group">
-                                <label class="font-weight-bold">Foto</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                <label class="font-weight-bold">Universitas</label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama">
                             
                                 <!-- error message untuk image -->
-                                @error('image')
+                                @error('nama')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
-                                @enderror
+                                    @enderror
+                                </div>
+                                
+                            <div class="form-group">
+                                <label class="font-weight-bold">Alamat</label>
+                                <input type="text" class="form-control" name="alamat" value="{{ $mahasiswa->alamat }}">
                             </div>
 
                             <div class="form-group">
-                                <label class="font-weight-bold">Nama</label>
-                                <input type="text" class="form-control" name="nama" value="{{ $mahasiswa->nama }}">
+                                <label class="font-weight-bold">Alamat</label>
+                                <input type="text" class="form-control" name="nama" value="{{ $universitas->nama }}">
                             </div>
-
-                            <div class="form-group">
-                                <label class="font-weight-bold">NIM</label>
-                                <input type="text" class="form-control" name="nim" value="{{ $mahasiswa->nim }}">
-                            </div>
-
+                            
                             <div class="form-group">
                                 <label class="font-weight-bold">No. Telepon</label>
-                                <input type="text" class="form-control" name="no_telp" value="{{ $mahasiswa->no_telp }}">
+                                <input type="text" class="form-control" name="no_telp" value="{{ $universitas->no_telp }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold">Email</label>
+                                <input type="email" class="form-control" name="email" value="{{ $universitas->email }}">
                             </div>
 
                             <div class="form-group">
@@ -50,10 +55,6 @@
                                 <input type="text" class="form-control" name="umur" value="{{ $mahasiswa->umur }}">
                             </div>
 
-                            <div class="form-group">
-                                <label class="font-weight-bold">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" value="{{ $mahasiswa->alamat }}">
-                            </div>
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Lahir</label>
@@ -62,17 +63,7 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Jenis Kelamin</label>
-                                <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin">
-                                    <option value="Laki-laki" {{ $mahasiswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="Perempuan" {{ $mahasiswa->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-                                </select>
-                            
-                                <!-- error message untuk jenis_kelamin -->
-                                @error('jenis_kelamin')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="jenis_kelamin" value="{{ $mahasiswa->jenis_kelamin }}">
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary">UPDATE</button>

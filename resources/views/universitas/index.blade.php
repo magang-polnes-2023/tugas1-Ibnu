@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Mahasiswa</title>
+    <title>Data Universitas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
@@ -20,30 +20,28 @@
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('mahasiswa.create') }}" class="btn btn-md btn-success mb-3">TAMBAH DATA MAHASISWA</a>
+                        <a href="{{ route('universitas.create') }}" class="btn btn-md btn-success mb-3">TAMBAH DATA UNIVERSITAS</a>
                         <table class="table table-bordered">
                             <thead>
                               <tr>
-                                <th scope="col">Foto Profil</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">NIM</th>
-                                <th scope="col">No Telpon</th>
+                                <th scope="col">Universitas</th>
+                                <th scope="col">Telepon</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Akreditas</th>
                                 <th scope="col">AKSI</th>
                               </tr>
                             </thead>
                             <tbody>
-                              @forelse ($mahasiswas as $mahasiswa)
+                              @forelse ($universitass as $universitas)
                                 <tr>
+                                    <td>{{ $universitas->nama }}</td>
+                                    <td>{{ $universitas->no_telp}}</td>
+                                    <td>{{ $universitas->email}}</td>
+                                    <td>{{ $universitas->akreditas}}</td>
                                     <td class="text-center">
-                                        <img src="{{ asset('/storage/posts/'.$mahasiswa->image) }}" class="rounded" style="width: 150px">
-                                    </td>
-                                    <td>{{ $mahasiswa->nama }}</td>
-                                    <td>{{ $mahasiswa->nim}}</td>
-                                    <td>{{ $mahasiswa->no_telp}}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('mahasiswa.show', $mahasiswa->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                        <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('mahasiswa.destroy', $mahasiswa->id) }}" method="POST">
+                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('universitas.destroy', $universitas->id) }}" method="POST">
+                                            <a href="{{ route('universitas.show', $universitas->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                            <a href="{{ route('universitas.edit', $universitas->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -52,12 +50,12 @@
                                 </tr>
                               @empty
                                   <div class="alert alert-danger">
-                                      Data mahasiswa belum Tersedia.
+                                      Data Universitas belum Tersedia.
                                   </div>
                               @endforelse
                             </tbody>
                           </table>  
-                          {{ $mahasiswas->links() }}
+                          {{ $universitass->links() }}
                     </div>
                 </div>
             </div>

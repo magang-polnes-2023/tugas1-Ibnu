@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Data Mahasiswa - SantriKoding.com</title>
+    <title>Tambah Data Mahasiswa</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body style="background: lightgray">
@@ -14,13 +14,13 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('mahasiswas.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                         
                             @csrf
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Foto</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
                             
                                 <!-- error message untuk image -->
                                 @error('image')
@@ -68,7 +68,7 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Umur</label>
-                                <input type="text" class="form-control @error('umur') is-invalid @enderror" name="umur" value="{{ old('umur') }}" placeholder="Masukkan Umur">
+                                <input type="number" class="form-control @error('umur') is-invalid @enderror" name="umur" value="{{ old('umur') }}" placeholder="Masukkan Umur">
                             
                                 <!-- error message untuk umur -->
                                 @error('umur')
