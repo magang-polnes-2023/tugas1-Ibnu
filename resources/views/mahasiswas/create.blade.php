@@ -18,18 +18,36 @@
                         
                             @csrf
 
+                            
                             <div class="form-group">
                                 <label class="font-weight-bold">Foto</label>
                                 <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-                            
+                                
                                 <!-- error message untuk image -->
                                 @error('image')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="font-weight-bold">Universitas</label>
+                                <select class="form-control @error('universitas_id') is-invalid @enderror" name="universitas_id">
+                                    <option>--Pilih--</option>
+                                    @foreach ($univ as $univ)
+                                    <option value="{{ $univ->id }}">{{ $univ->nama }}</option>
+                                    @endforeach
+                                </select>
+                            
+                                <!-- error message untuk jenis_kelamin -->
+                                @error('universitas_id')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-
+                            
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama">

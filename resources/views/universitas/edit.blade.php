@@ -14,13 +14,13 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('universitas.update', $universitas->nama) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('universitas.update', $universitas->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Universitas</label>
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama">
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ $universitas->nama }}">
                             
                                 <!-- error message untuk image -->
                                 @error('nama')
@@ -32,38 +32,54 @@
                                 
                             <div class="form-group">
                                 <label class="font-weight-bold">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" value="{{ $mahasiswa->alamat }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-weight-bold">Alamat</label>
-                                <input type="text" class="form-control" name="nama" value="{{ $universitas->nama }}">
+                                <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ $universitas->alamat }}">
+                                
+                                <!-- error message untuk alamat -->
+                                @error('alamat')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             
                             <div class="form-group">
                                 <label class="font-weight-bold">No. Telepon</label>
-                                <input type="text" class="form-control" name="no_telp" value="{{ $universitas->no_telp }}">
+                                <input type="text" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ $universitas->no_telp }}">
+
+                                <!-- error message untuk no_telp -->
+                                @error('no_telp')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}                                        
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ $universitas->email }}">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $universitas->email }}">
+                            
+                                <!-- error message untuk image -->
+                                @error('email')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label class="font-weight-bold">Umur</label>
-                                <input type="text" class="form-control" name="umur" value="{{ $mahasiswa->umur }}">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="font-weight-bold">Tanggal Lahir</label>
-                                <input type="text" class="form-control" name="tanggal_lahir" value="{{ $mahasiswa->tanggal_lahir }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="font-weight-bold">Jenis Kelamin</label>
-                                <input type="text" class="form-control" name="jenis_kelamin" value="{{ $mahasiswa->jenis_kelamin }}">
+                                <label class="font-weight-bold">Akreditas</label>
+                                <select class="form-control @error('akreditas') is-invalid @enderror" name="akreditas">
+                                    <option value="A" {{ $universitas->akreditas == 'A' ? 'selected' : '' }}>A</option>
+                                    <option value="B" {{ $universitas->akreditas == 'B' ? 'selected' : '' }}>B</option>
+                                    <option value="C" {{ $universitas->akreditas == 'C' ? 'selected' : '' }}>C</option>
+                                </select>
+                            
+                                <!-- error message untuk jenis_kelamin -->
+                                @error('akreditas')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary">UPDATE</button>

@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('mahasiswas.update', $mahasiswa->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -24,6 +24,23 @@
                             
                                 <!-- error message untuk image -->
                                 @error('image')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="font-weight-bold">Universitas</label>
+                                <select class="form-control @error('universitas_id') is-invalid @enderror" name="universitas_id">
+                                    <option>--Pilih--</option>
+                                    @foreach ($universitas as $univ)
+                                    <option value="{{ $univ->id }}" {{ $univ->id == $mahasiswa->universitas_id ? 'selected' : '' }}>{{ $univ->nama }}</option>
+                                    @endforeach
+                                </select>
+                            
+                                <!-- error message untuk jenis_kelamin -->
+                                @error('universitas_id')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>

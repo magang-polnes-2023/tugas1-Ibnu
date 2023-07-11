@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('akreditas');
             $table->timestamps();
         });
+
+        Schema::table('mahasiswas', function (Blueprint $table) {
+            $table->foreignId('universitas_id')->after('id')->constrained('universitas');
+        });
     }
 
     /**

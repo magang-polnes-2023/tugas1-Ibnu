@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 //import model "post
 use App\Models\Mahasiswa;
 
+use App\Models\Universitas;
+
 use Illuminate\Http\Request;
 
 //return type view
@@ -27,14 +29,16 @@ class MahasiswaController extends Controller
     {
         //get mahasiswa
         $mahasiswas = Mahasiswa::latest()->paginate(5);
+        $universitas = Universitas::all();
 
         //render view with mahasiswa
-        return view( 'mahasiswas.index', compact('mahasiswas'));
+        return view( 'mahasiswas.index', compact('mahasiswas', 'universitas'));
     }
 
     public function create(): View
     {
-        return view('mahasiswas.create');
+        $univ = Universitas::all();
+        return view('mahasiswas.create', compact('univ'));
     }
      /**
      * store
@@ -46,6 +50,7 @@ class MahasiswaController extends Controller
     {
         //validate form
         $this->validate($request, [
+            'universitas_id'=> 'required',
             'nama'          => 'required|min:5',
             'nim'           => 'required|unique:mahasiswas',
             'no_telp'       => 'required',
@@ -62,6 +67,7 @@ class MahasiswaController extends Controller
         
         //create mahasiswa
         Mahasiswa::create([
+            'universitas_id'=> $request ->universitas_id,
             'nama'          => $request ->nama,
             'nim'           => $request ->nim,
             'no_telp'       => $request ->no_telp,
@@ -73,31 +79,35 @@ class MahasiswaController extends Controller
         ]);
         
         //redirect to index
-        return redirect()->route('mahasiswas.index')->with(['succes' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('mahasiswa.index')->with(['succes' => 'Data Berhasil Disimpan!']);
     }
 
     public function show(string $id): View
     {
         //get mahasiswa by ID
         $mahasiswa = Mahasiswa::findOrFail($id);
+        $universitas = Universitas::all();
+
         
         //render view with mahasiswa
-        return view('mahasiswas.show', compact('mahasiswa'));
+        return view('mahasiswas.show', compact('mahasiswa', 'universitas'));
     }
     
     public function edit(string $id): View
     {
         //get mahasiswa by ID
         $mahasiswa = Mahasiswa::findOrFail($id);
+        $universitas = Universitas::all();
         
         //render view with post
-        return view('mahasiswas.edit', compact('mahasiswa'));
+        return view('mahasiswas.edit', compact('mahasiswa', 'universitas'));
     }
     
     public function update(Request $request, $id)
     {
         //validate form
         $this->validate($request, [
+            'universitas_id' => 'required',
             'nama' => 'required|min:5',
             'nim' => 'required',
             'no_telp' => 'required',
@@ -123,6 +133,7 @@ class MahasiswaController extends Controller
             
             //update mahasiswa with new image
             $mahasiswa->update([
+                'universitas_id'=> $request ->universitas_id,
                 'nama'          => $request ->nama,
                 'nim'           => $request ->nim,
                 'no_telp'       => $request ->no_telp,
@@ -136,6 +147,7 @@ class MahasiswaController extends Controller
 
                 //update mahasiswa without image
                 $mahasiswa->update([
+                    'universitas_id'=> $request ->universitas_id,
                     'nama'          => $request ->nama,
                     'nim'           => $request ->nim,
                     'no_telp'       => $request ->no_telp,
@@ -147,7 +159,7 @@ class MahasiswaController extends Controller
             }
 
             //redirect to index
-            return redirect()->route('mahasiswas.index')->with(['success' => 'Data Berhasil Diubah!']);
+            return redirect()->route('mahasiswa.index')->with(['success' => 'Data Berhasil Diubah!']);
         }
 
         public function destroy($id): RedirectResponse
@@ -162,6 +174,6 @@ class MahasiswaController extends Controller
             $mahasiswa->delete();
 
             //redirect to index
-            return redirect()->route('mahasiswas.index')->with(['success' => 'Data Berhasil Dihapus!']);
+            return redirect()->route('mahasiswa.index')->with(['success' => 'Data Berhasil Dihapus!']);
         }
     }   

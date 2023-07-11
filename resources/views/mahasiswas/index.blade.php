@@ -25,6 +25,7 @@
                             <thead>
                               <tr>
                                 <th scope="col">Foto Profil</th>
+                                <th scope="col">Universitas</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">NIM</th>
                                 <th scope="col">No Telpon</th>
@@ -37,13 +38,14 @@
                                     <td class="text-center">
                                         <img src="{{ asset('/storage/posts/'.$mahasiswa->image) }}" class="rounded" style="width: 150px">
                                     </td>
+                                    <td>{{ $mahasiswa->universitas->nama}}</td>
                                     <td>{{ $mahasiswa->nama }}</td>
                                     <td>{{ $mahasiswa->nim}}</td>
                                     <td>{{ $mahasiswa->no_telp}}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('mahasiswa.show', $mahasiswa->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                        <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('mahasiswa.destroy', $mahasiswa->id) }}" method="POST">
+                                            <a href="{{ route('mahasiswa.show', $mahasiswa->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                            <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

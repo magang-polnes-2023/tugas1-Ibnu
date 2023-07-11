@@ -16,4 +16,9 @@ class Universitas extends Model
         'email',
         'akreditas',
     ];
+
+    public function mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class);
+    }
 }

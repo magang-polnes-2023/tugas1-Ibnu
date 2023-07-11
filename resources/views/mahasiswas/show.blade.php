@@ -15,15 +15,11 @@
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
                         <img src="{{ asset('storage/posts/'.$mahasiswa->image) }}" class="w-100 rounded">
-                        <hr>
-                        <h4>{{ $mahasiswa->title }}</h4>
-                        <p class="mt-3">
-                            {!! $mahasiswa->content !!}
-                        </p>
                         <div class="mt-3">
                             <h5>Data Mahasiswa:</h5>
                             <ul>
                                 <li><strong>ID:</strong> {{ $mahasiswa->id }}</li>
+                                <li><strong>Universitas:</strong> {{ $mahasiswa->universitas->nama }}</li>
                                 <li><strong>Nama:</strong> {{ $mahasiswa->nama }}</li>
                                 <li><strong>NIM:</strong> {{ $mahasiswa->nim }}</li>
                                 <li><strong>No. Telepon:</strong> {{ $mahasiswa->no_telp }}</li>
